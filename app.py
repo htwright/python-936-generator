@@ -28,16 +28,16 @@ lst = content.split(' ')
 values = {}
 lst1 = []
 for str in lst:
-  if len(str) > 3:
+  if len(str) > 3 and str != 'stylebackgroundffffef':
     lst1.append(str.lower())
 
 c = Counter(lst1)
-sorted_values = c.most_common(5000);
+sorted_values = c.most_common(2000);
 
 def generate_936(tuples = sorted_values):
   result = []
   for i in range(4):
-    j = random.randint(0, 4999)
+    j = random.randint(0, 1999)
     x, _ = tuples[j]
     result.append(x)
   return '%s - %s - %s - %s' % (result[0], result[1], result[2], result[3])
@@ -58,12 +58,6 @@ class Application(tk.Frame):
     def create_widgets(self):
         self.generate_data()
 
-    def say_hi(self):
-      print("hi there, everyone!")
-    def reroll(self):
-      password = generate_936(sorted_values)
-      print(password)
-      return password
     def clipboard(self, text):
       copy(text)
     def generate_data(self):
@@ -75,14 +69,12 @@ class Application(tk.Frame):
       for i in range(10):
         passwords1.append(generate_936(sorted_values))
       for i in passwords1:
-        self.btn[counter] = tk.Button(self)
-        self.btn[counter]['text'] = i
-        self.btn[counter]['command'] = lambda j=i: self.clipboard(j)
+        self.btn[counter] = tk.Button(self, text=i, command=lambda i=i: self.clipboard(i))
         self.btn[counter].pack(side='bottom') 
         counter += 1
-      self.reroll = tk.Button(self)
-      self.reroll['text'] = 'reroll'
-      self.reroll['command'] = self.generate_data
+      self.reroll = tk.Button(self, text = 'reroll', command = self.generate_data)
+      # self.reroll['text'] = 'reroll'
+      # self.reroll['command'] = self.generate_data
       self.reroll.pack(side='left')
       self.quit = tk.Button(self, text="QUIT", fg="red",
       command=root.destroy)
@@ -100,5 +92,6 @@ def copy(text):
 #single reroll function tied to a single event
 #click password to copy passwords
 root = tk.Tk()
+root.wm_title('936 passwords')
 app = Application(master=root)
 app.mainloop()
