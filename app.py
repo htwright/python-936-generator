@@ -56,34 +56,28 @@ class Application(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        self.hi_there = tk.Button(self)
-        self.hi_there["text"] = password
-        self.hi_there["command"] = lambda:self.clipboard(password)
-        self.hi_there.pack(side="left")
-        for i in passwords[1::2]:
+        self.reroll = tk.Button(self)
+        self.reroll['text'] = 'reroll'
+        self.reroll['command'] = self.reroll
+        self.reroll.pack(side='left')
+        for i in passwords:
           self.i = tk.Button(self)
           self.i['text'] = i
-          self.i['command'] = lambda: self.clipboard(i)
-          self.i.pack(side='top')
-        for i in passwords[::2]:
-          self.i = tk.Button(self)
-          self.i['text'] = i
-          self.i['command'] = lambda: self.clipboard(i)
-          self.i.pack(side='bottom')
+          self.i['command'] = lambda j=i: self.clipboard(j)
+          self.i.pack(side='bottom') 
 
         self.quit = tk.Button(self, text="QUIT", fg="red",
                               command=root.destroy)
         self.quit.pack(side="right")
 
     def say_hi(self):
-        print("hi there, everyone!")
+      print("hi there, everyone!")
     def reroll(self):
       password = generate_936(sorted_values)
       print(password)
       return password
     def clipboard(self, text):
       copy(text)
-
 def copy(text):
     win32clipboard.OpenClipboard()
     win32clipboard.EmptyClipboard()
