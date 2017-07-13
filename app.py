@@ -56,19 +56,7 @@ class Application(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        self.reroll = tk.Button(self)
-        self.reroll['text'] = 'reroll'
-        self.reroll['command'] = self.reroll
-        self.reroll.pack(side='left')
-        for i in passwords:
-          self.i = tk.Button(self)
-          self.i['text'] = i
-          self.i['command'] = lambda j=i: self.clipboard(j)
-          self.i.pack(side='bottom') 
-
-        self.quit = tk.Button(self, text="QUIT", fg="red",
-                              command=root.destroy)
-        self.quit.pack(side="right")
+        self.generate_data()
 
     def say_hi(self):
       print("hi there, everyone!")
@@ -78,6 +66,31 @@ class Application(tk.Frame):
       return password
     def clipboard(self, text):
       copy(text)
+    def generate_data(self):
+      for widget in self.winfo_children():
+        widget.destroy()
+      self.btn = list(range (10))
+      passwords1 = []
+      counter = 0
+      for i in range(10):
+        passwords1.append(generate_936(sorted_values))
+      for i in passwords1:
+        self.btn[counter] = tk.Button(self)
+        self.btn[counter]['text'] = i
+        self.btn[counter]['command'] = lambda j=i: self.clipboard(j)
+        self.btn[counter].pack(side='bottom') 
+        counter += 1
+      self.reroll = tk.Button(self)
+      self.reroll['text'] = 'reroll'
+      self.reroll['command'] = self.generate_data
+      self.reroll.pack(side='left')
+      self.quit = tk.Button(self, text="QUIT", fg="red",
+      command=root.destroy)
+      self.quit.pack(side="right")
+
+
+
+
 def copy(text):
     win32clipboard.OpenClipboard()
     win32clipboard.EmptyClipboard()
