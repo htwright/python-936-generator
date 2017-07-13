@@ -33,8 +33,7 @@ for str in lst1:
   else:
     values[str.lower()] += 1
 #returns sorted (descending) tuples. The program hangs here.
-#TODO: Improve runtime of this step. Perhaps finding a way to start with tuples instead of a dict?
-#Seems like even if the type change doesnt happen, the counting and sorting is very expensisve.
+#TODO: Improve runtime of this step.
 sorted_values = sorted(values.items(), key=operator.itemgetter(1), reverse=True)
 
 def generate_936(tuples):
@@ -45,7 +44,6 @@ def generate_936(tuples):
     result.append(x)
   return '%s - %s - %s - %s' % (result[0], result[1], result[2], result[3])
 for i in range(10):
-  # testvar = generate_936(sorted_values)
   print('936 password - ', generate_936(sorted_values))
 print('Length of filtered, sorted list of words')
 print(len(sorted_values))
