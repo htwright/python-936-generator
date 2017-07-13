@@ -50,7 +50,7 @@ password = generate_936(sorted_values)
 
 
 class Application(tk.Frame):
-    def __init__(self, master=None):
+    def __init__(self, master = None):
         super().__init__(master)
         self.pack()
         self.create_widgets()
@@ -63,22 +63,19 @@ class Application(tk.Frame):
     def generate_data(self):
       for widget in self.winfo_children():
         widget.destroy()
-      self.btn = list(range (10))
+      self.btn = list(range(10))
       passwords1 = []
       counter = 0
       for i in range(10):
         passwords1.append(generate_936(sorted_values))
       for i in passwords1:
-        self.btn[counter] = tk.Button(self, text=i, command=lambda i=i: self.clipboard(i))
-        self.btn[counter].pack(side='bottom') 
+        self.btn[counter] = tk.Button(self, text = i, command = lambda i = i: self.clipboard(i))
+        self.btn[counter].pack(side = 'bottom') 
         counter += 1
       self.reroll = tk.Button(self, text = 'reroll', command = self.generate_data)
-      # self.reroll['text'] = 'reroll'
-      # self.reroll['command'] = self.generate_data
-      self.reroll.pack(side='left')
-      self.quit = tk.Button(self, text="QUIT", fg="red",
-      command=root.destroy)
-      self.quit.pack(side="right")
+      self.reroll.pack(side = 'left')
+      self.quit = tk.Button(self, text = "QUIT", fg = "red", command = root.destroy)
+      self.quit.pack(side = "right")
 
 
 
@@ -89,9 +86,7 @@ def copy(text):
     win32clipboard.SetClipboardText(text, win32clipboard.CF_UNICODETEXT)
     win32clipboard.CloseClipboard()
 
-#single reroll function tied to a single event
-#click password to copy passwords
 root = tk.Tk()
 root.wm_title('936 passwords')
-app = Application(master=root)
+app = Application(master = root)
 app.mainloop()
