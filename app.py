@@ -3,6 +3,8 @@ import operator
 import random
 from collections import Counter
 import tkinter as tk
+import win32clipboard
+
 filename = './sample.txt'
 #current sample.txt file includes 2 text files from wikipedia text dump compiled into a single utf-8.txt in order to avoid errors.
 #~6.5 million characters pre filter, ~7MB
@@ -52,25 +54,26 @@ class Application(tk.Frame):
         super().__init__(master)
         self.pack()
         self.create_widgets()
-        self.grid()
 
     def create_widgets(self):
         self.hi_there = tk.Button(self)
         self.hi_there["text"] = password
-        self.hi_there["command"] = self.reroll()
-        self.hi_there.pack(side="top")
+        self.hi_there["command"] = lambda:self.clipboard(password)
+        self.hi_there.pack(side="left")
         for i in passwords[1::2]:
           self.i = tk.Button(self)
           self.i['text'] = i
+          self.i['command'] = lambda: self.clipboard(i)
           self.i.pack(side='top')
         for i in passwords[::2]:
           self.i = tk.Button(self)
           self.i['text'] = i
+          self.i['command'] = lambda: self.clipboard(i)
           self.i.pack(side='bottom')
 
         self.quit = tk.Button(self, text="QUIT", fg="red",
                               command=root.destroy)
-        self.quit.pack(side="bottom")
+        self.quit.pack(side="right")
 
     def say_hi(self):
         print("hi there, everyone!")
@@ -78,7 +81,17 @@ class Application(tk.Frame):
       password = generate_936(sorted_values)
       print(password)
       return password
+    def clipboard(self, text):
+      copy(text)
 
+def copy(text):
+    win32clipboard.OpenClipboard()
+    win32clipboard.EmptyClipboard()
+    win32clipboard.SetClipboardText(text, win32clipboard.CF_UNICODETEXT)
+    win32clipboard.CloseClipboard()
+
+#single reroll function tied to a single event
+#click password to copy passwords
 root = tk.Tk()
 app = Application(master=root)
 app.mainloop()
