@@ -1,3 +1,5 @@
+import codecs
+import operator
 import random
 from collections import Counter
 import tkinter as tk
@@ -30,12 +32,13 @@ for str in lst:
     lst1.append(str.lower())
 
 c = Counter(lst1)
-sorted_values = c.most_common(2048);
+sorted_values = c.most_common(2000);
 
 def generate_936(tuples = sorted_values):
   result = []
   for i in range(4):
-    x, _ = random.choice(tuples)
+    j = random.randint(0, 1999)
+    x, _ = tuples[j]
     result.append(x)
   return '%s - %s - %s - %s' % (result[0], result[1], result[2], result[3])
 
