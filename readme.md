@@ -2,7 +2,11 @@ My first forray into cryptography. A simple windows desktop application that gen
  
  
 <br>To Run -  
- 
+<br>Open Terminal of your choice
+<br>clone the repository
+<br><code>cd</code> into the new directory 
+<br>enter <code> py app.py </code> 
+<br>
 <br>Requirements -  
 <br>Windows OS 
 <br>Python 3.0 or greater 
